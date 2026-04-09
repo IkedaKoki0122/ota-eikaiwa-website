@@ -1,6 +1,29 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, type ReactNode } from "react";
+import TranslateIcon from "@mui/icons-material/Translate";
+import HomeIcon from "@mui/icons-material/Home";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import GraphicEqIcon from "@mui/icons-material/GraphicEq";
+import LinkIcon from "@mui/icons-material/Link";
+import QuizIcon from "@mui/icons-material/Quiz";
+import LightbulbIcon from "@mui/icons-material/Lightbulb";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import TrackChangesIcon from "@mui/icons-material/TrackChanges";
+import PaletteIcon from "@mui/icons-material/Palette";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
+import ArticleIcon from "@mui/icons-material/Article";
+import CampaignIcon from "@mui/icons-material/Campaign";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import CloseIcon from "@mui/icons-material/Close";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
+
+const I = { fontSize: "1em", verticalAlign: "-0.125em" } as const;
+const IS = { fontSize: "0.9em", verticalAlign: "-0.125em" } as const;
 
 // ===== TYPES =====
 interface Example {
@@ -1045,7 +1068,7 @@ function DetailPanel({
   return (
     <div ref={panelRef} className="detail-panel show">
       <button className="close-detail" onClick={onClose}>
-        ✕
+        <CloseIcon sx={I} />
       </button>
       <div className="detail-header">
         <div className="detail-symbol" style={{ color, borderColor: color }}>
@@ -1060,14 +1083,14 @@ function DetailPanel({
       <div className="sound-panel">
         <div className="sound-panel-sym">{phoneme.sym}</div>
         <div className="sound-panel-info">
-          <div className="sp-title">📣 この発音記号の音を聞く</div>
+          <div className="sp-title"><CampaignIcon sx={I} /> この発音記号の音を聞く</div>
           <div className="sound-panel-btns">
             <div>
               <button
                 className="sp-btn normal"
                 onClick={() => speak(phoneme.soundWord)}
               >
-                🔊 普通の速さ
+                <VolumeUpIcon sx={IS} /> 普通の速さ
               </button>
               <span className="sp-label">{phoneme.soundWord}</span>
             </div>
@@ -1076,7 +1099,7 @@ function DetailPanel({
                 className="sp-btn slow-v"
                 onClick={() => speakSlow(phoneme.soundWord)}
               >
-                🐢 ゆっくり
+                <SlowMotionVideoIcon sx={IS} /> ゆっくり
               </button>
               <span className="sp-label">0.5倍速</span>
             </div>
@@ -1085,7 +1108,7 @@ function DetailPanel({
                 className="sp-btn word-v"
                 onClick={() => speak(phoneme.soundAlt)}
               >
-                📝 別の例語
+                <ArticleIcon sx={IS} /> 別の例語
               </button>
               <span className="sp-label">{phoneme.soundAlt}</span>
             </div>
@@ -1094,7 +1117,7 @@ function DetailPanel({
                 className="sp-btn word-v"
                 onClick={() => speakSlow(phoneme.soundAlt)}
               >
-                🐢 別の例（遅）
+                <SlowMotionVideoIcon sx={IS} /> 別の例（遅）
               </button>
               <span className="sp-label">0.5倍速</span>
             </div>
@@ -1107,7 +1130,7 @@ function DetailPanel({
         <div className="articulation-box">{phoneme.mouth}</div>
       </div>
       <div className="detail-section">
-        <h3>例語一覧（▶ 普通 / 🐢 ゆっくり）</h3>
+        <h3>例語一覧（<PlayArrowIcon sx={{ fontSize: "0.85em" }} /> 普通 / <SlowMotionVideoIcon sx={{ fontSize: "0.85em" }} /> ゆっくり）</h3>
         <div className="example-list">
           {phoneme.ex.map((e) => (
             <div key={e.w} className="example-item">
@@ -1119,14 +1142,14 @@ function DetailPanel({
                 title="普通の速さ"
                 onClick={() => speak(e.w)}
               >
-                ▶
+                <PlayArrowIcon sx={{ fontSize: "0.85rem" }} />
               </button>
               <button
                 className="play-word-btn slow-word"
                 title="ゆっくり"
                 onClick={() => speakSlow(e.w)}
               >
-                🐢
+                <SlowMotionVideoIcon sx={{ fontSize: "0.7rem" }} />
               </button>
             </div>
           ))}
@@ -1164,14 +1187,14 @@ function StressSection() {
               style={{ padding: "6px 12px", fontSize: "0.75rem" }}
               onClick={() => speak(s.word)}
             >
-              🔊 普通
+              <VolumeUpIcon sx={IS} /> 普通
             </button>
             <button
               className="sp-btn slow-v"
               style={{ padding: "6px 12px", fontSize: "0.75rem" }}
               onClick={() => speakSlow(s.word)}
             >
-              🐢 ゆっくり
+              <SlowMotionVideoIcon sx={IS} /> ゆっくり
             </button>
           </div>
         </div>
@@ -1202,14 +1225,14 @@ function ConnectedList({ items }: { items: ConnectedItem[] }) {
               style={{ padding: "6px 12px", fontSize: "0.75rem" }}
               onClick={() => speak(item.phrase)}
             >
-              🔊 普通
+              <VolumeUpIcon sx={IS} /> 普通
             </button>
             <button
               className="sp-btn slow-v"
               style={{ padding: "6px 12px", fontSize: "0.75rem" }}
               onClick={() => speakSlow(item.phrase)}
             >
-              🐢 ゆっくり
+              <SlowMotionVideoIcon sx={IS} /> ゆっくり
             </button>
           </div>
         </div>
@@ -1278,13 +1301,13 @@ function QuizSection() {
       </p>
       <div className="quiz-sound-row">
         <button className="sp-btn normal" onClick={() => speak(q.speakWord)}>
-          🔊 普通の速さ
+          <VolumeUpIcon sx={IS} /> 普通の速さ
         </button>
         <button
           className="sp-btn slow-v"
           onClick={() => speakSlow(q.speakWord)}
         >
-          🐢 ゆっくり
+          <SlowMotionVideoIcon sx={IS} /> ゆっくり
         </button>
       </div>
       <div className="quiz-options">
@@ -1301,9 +1324,9 @@ function QuizSection() {
       <div className="quiz-result">
         {answered &&
           (selectedOption === q.answer ? (
-            <span style={{ color: "#155724" }}>✅ 正解！</span>
+            <span style={{ color: "#155724" }}><CheckCircleIcon sx={I} /> 正解！</span>
           ) : (
-            <span style={{ color: "#721c24" }}>❌ 正解は「{q.answer}」</span>
+            <span style={{ color: "#721c24" }}><CancelIcon sx={I} /> 正解は「{q.answer}」</span>
           ))}
       </div>
       {answered && (
@@ -1316,14 +1339,14 @@ function QuizSection() {
 }
 
 // ===== MAIN =====
-const sections: { id: SectionId; label: string }[] = [
-  { id: "intro", label: "🏠 はじめに" },
-  { id: "vowels", label: "🔴 母音" },
-  { id: "consonants", label: "🔵 子音" },
-  { id: "diphthongs", label: "🟢 二重母音" },
-  { id: "stress", label: "📐 強弱・音節" },
-  { id: "connected", label: "🔗 つながり音" },
-  { id: "quiz", label: "🎯 確認テスト" },
+const sections: { id: SectionId; icon: ReactNode; label: string }[] = [
+  { id: "intro", icon: <HomeIcon sx={I} />, label: "はじめに" },
+  { id: "vowels", icon: <FiberManualRecordIcon sx={{ ...I, color: "var(--red)" }} />, label: "母音" },
+  { id: "consonants", icon: <FiberManualRecordIcon sx={{ ...I, color: "var(--blue)" }} />, label: "子音" },
+  { id: "diphthongs", icon: <FiberManualRecordIcon sx={{ ...I, color: "var(--green)" }} />, label: "二重母音" },
+  { id: "stress", icon: <GraphicEqIcon sx={I} />, label: "強弱・音節" },
+  { id: "connected", icon: <LinkIcon sx={I} />, label: "つながり音" },
+  { id: "quiz", icon: <QuizIcon sx={I} />, label: "確認テスト" },
 ];
 
 export default function PhoneticsApp() {
@@ -1359,7 +1382,7 @@ export default function PhoneticsApp() {
   return (
     <>
       <header className="app-header">
-        <h1>🔤 英語発音記号 完全ガイド</h1>
+        <h1><TranslateIcon sx={{ fontSize: "1.2em", verticalAlign: "-0.125em" }} /> 英語発音記号 完全ガイド</h1>
         <p>International Phonetic Alphabet — 初心者から上級者まで</p>
       </header>
 
@@ -1370,7 +1393,7 @@ export default function PhoneticsApp() {
             className={`nav-btn ${activeSection === s.id ? "active" : ""}`}
             onClick={() => showSection(s.id)}
           >
-            {s.label}
+            {s.icon} {s.label}
           </button>
         ))}
       </nav>
@@ -1390,7 +1413,7 @@ export default function PhoneticsApp() {
             </p>
           </div>
           <div className="tip-box">
-            💡 <strong>例えば：</strong>
+            <LightbulbIcon sx={{ ...I, color: "var(--gold)" }} /> <strong>例えば：</strong>
             「read」は過去形だと「レッド /rɛd/」、現在形だと「リード /riːd/」と全然違う！
             <br />
             「the」も「ザ /ðə/」か「ジ /ði/」か、後ろに来る音で変わります。
@@ -1399,21 +1422,21 @@ export default function PhoneticsApp() {
           </div>
           <div className="grid-2">
             <div className="info-card">
-              <h3>📚 IPAとは</h3>
+              <h3><MenuBookIcon sx={IS} /> IPAとは</h3>
               <p>
                 International Phonetic
                 Alphabet（国際音声記号）の略。世界中の辞書で使われている共通ルールです。
               </p>
             </div>
             <div className="info-card">
-              <h3>🎯 学ぶ順番</h3>
+              <h3><TrackChangesIcon sx={IS} /> 学ぶ順番</h3>
               <p>
                 ① 短母音 → ② 長母音 → ③ 子音 → ④ 二重母音 → ⑤ 強弱・音節 →
                 ⑥ つながり音
               </p>
             </div>
             <div className="info-card">
-              <h3>🔴🔵🟢 色の意味</h3>
+              <h3><PaletteIcon sx={IS} /> 色の意味</h3>
               <p>
                 <span style={{ color: "var(--red)" }}>赤＝母音</span>　
                 <span style={{ color: "var(--blue)" }}>青＝子音</span>　
@@ -1421,13 +1444,13 @@ export default function PhoneticsApp() {
               </p>
             </div>
             <div className="info-card">
-              <h3>🔊 音声ボタンの種類</h3>
+              <h3><VolumeUpIcon sx={IS} /> 音声ボタンの種類</h3>
               <p>
-                🔊 <strong>普通</strong>：通常の速さ
+                <VolumeUpIcon sx={IS} /> <strong>普通</strong>：通常の速さ
                 <br />
-                🐢 <strong>ゆっくり</strong>：0.5倍速でじっくり確認
+                <SlowMotionVideoIcon sx={IS} /> <strong>ゆっくり</strong>：0.5倍速でじっくり確認
                 <br />
-                📝 <strong>例語</strong>：単語の中での音を確認
+                <ArticleIcon sx={IS} /> <strong>例語</strong>：単語の中での音を確認
               </p>
             </div>
           </div>
@@ -1435,7 +1458,7 @@ export default function PhoneticsApp() {
             className="tip-box"
             style={{ borderColor: "var(--blue)", background: "#f0f4ff" }}
           >
-            📖 <strong>記号の読み方ルール：</strong>
+            <AutoStoriesIcon sx={{ ...I, color: "var(--blue)" }} /> <strong>記号の読み方ルール：</strong>
             <br />
             <code
               style={{
@@ -1491,11 +1514,11 @@ export default function PhoneticsApp() {
             phoneme={selectedVowel}
             onClose={() => setSelectedVowel(null)}
           />
-          <h2 className="category-title">🔴 短母音（Short Vowels）</h2>
+          <h2 className="category-title"><FiberManualRecordIcon sx={{ ...I, color: "var(--red)" }} /> 短母音（Short Vowels）</h2>
           {renderPhonemeGrid(shortVowels, selectedVowel, setSelectedVowel)}
-          <h2 className="category-title">🔴 長母音（Long Vowels）</h2>
+          <h2 className="category-title"><FiberManualRecordIcon sx={{ ...I, color: "var(--red)" }} /> 長母音（Long Vowels）</h2>
           {renderPhonemeGrid(longVowels, selectedVowel, setSelectedVowel)}
-          <h2 className="category-title">🔴 特殊母音（Schwa & others）</h2>
+          <h2 className="category-title"><FiberManualRecordIcon sx={{ ...I, color: "var(--red)" }} /> 特殊母音（Schwa &amp; others）</h2>
           {renderPhonemeGrid(specialVowels, selectedVowel, setSelectedVowel)}
         </div>
 
@@ -1507,19 +1530,19 @@ export default function PhoneticsApp() {
             phoneme={selectedConsonant}
             onClose={() => setSelectedConsonant(null)}
           />
-          <h2 className="category-title">🔵 破裂音（Plosives）</h2>
+          <h2 className="category-title"><FiberManualRecordIcon sx={{ ...I, color: "var(--blue)" }} /> 破裂音（Plosives）</h2>
           {renderPhonemeGrid(
             plosives,
             selectedConsonant,
             setSelectedConsonant
           )}
-          <h2 className="category-title">🔵 摩擦音（Fricatives）</h2>
+          <h2 className="category-title"><FiberManualRecordIcon sx={{ ...I, color: "var(--blue)" }} /> 摩擦音（Fricatives）</h2>
           {renderPhonemeGrid(
             fricatives,
             selectedConsonant,
             setSelectedConsonant
           )}
-          <h2 className="category-title">🔵 鼻音・側音・半母音</h2>
+          <h2 className="category-title"><FiberManualRecordIcon sx={{ ...I, color: "var(--blue)" }} /> 鼻音・側音・半母音</h2>
           {renderPhonemeGrid(nasals, selectedConsonant, setSelectedConsonant)}
         </div>
 
@@ -1532,7 +1555,7 @@ export default function PhoneticsApp() {
             onClose={() => setSelectedDiphthong(null)}
           />
           <div className="tip-box">
-            🟢 <strong>二重母音とは？</strong>{" "}
+            <FiberManualRecordIcon sx={{ ...I, color: "var(--green)" }} /> <strong>二重母音とは？</strong>{" "}
             2つの母音音が滑らかにつながる音。始まりからゴールの音へ「滑り込む」イメージ。
           </div>
           {renderPhonemeGrid(
@@ -1547,7 +1570,7 @@ export default function PhoneticsApp() {
           className={`section ${activeSection === "stress" ? "active" : ""}`}
         >
           <div className="tip-box">
-            📐 <strong>強弱（ストレス）と音節</strong> —
+            <GraphicEqIcon sx={{ ...I, color: "var(--gold)" }} /> <strong>強弱（ストレス）と音節</strong> —
             強く読む音節を間違えると通じない英語に！
             <span
               style={{
@@ -1567,7 +1590,7 @@ export default function PhoneticsApp() {
             className="tip-box"
             style={{ marginTop: 20, borderColor: "var(--red)" }}
           >
-            ⚠️ <strong>品詞でアクセントが変わる単語</strong>
+            <WarningAmberIcon sx={{ ...I, color: "var(--red)" }} /> <strong>品詞でアクセントが変わる単語</strong>
             <br />• <strong>REcord</strong>（名詞）vs.{" "}
             <strong>reCORD</strong>（動詞）
             <br />• <strong>PREsent</strong>（名詞）vs.{" "}
@@ -1580,7 +1603,7 @@ export default function PhoneticsApp() {
           className={`section ${activeSection === "connected" ? "active" : ""}`}
         >
           <div className="tip-box">
-            🔗 <strong>つながり音</strong> —
+            <LinkIcon sx={{ ...I, color: "var(--gold)" }} /> <strong>つながり音</strong> —
             ネイティブが話すとき単語と単語がつながって変化します。
           </div>
           <h2 className="category-title">① リンキング（Linking）</h2>
